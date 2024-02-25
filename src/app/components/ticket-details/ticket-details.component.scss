@@ -1,0 +1,25 @@
+.status{
+    border: 1px solid #cccccc;
+    padding: 2px;
+    border-radius: 4px;
+    width: 150px;
+}
+select:focus {
+    outline: none;
+  }
+span{
+    font-size: 15px;
+    color: #9a9a9a;
+}
+hr{
+    border-top: solid #767676;
+    border-top-width: 1px;
+}
+.button-div{
+    display: flex;
+    justify-content: flex-end;
+}
+.attachment:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}

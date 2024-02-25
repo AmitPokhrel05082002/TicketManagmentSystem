@@ -1,0 +1,303 @@
+<!-- <div class="container"> -->
+    <div class="card col-12">
+        <div class="card-body">
+        <div class=" view_list p-2" style="display: flex; justify-content:flex-start;">
+            <div class="m-2">
+                <label for="licenseSelect" class="font_family">Select Report Model :</label>
+                <select class="form-control font_family form-select form-select-sm mt-2" id="licenseSelect"
+                    [(ngModel)]="selectedLicense" (change)="onLicenseSelected()">
+                    <option value="">--Select Model--</option>
+                    <option *ngFor="let license of licenseData; let first = first" [selected]="first" [value]="license">{{ license }}</option>
+                </select>
+            </div>
+            <div class="custom-modal pt-6">
+                <button (click)="onFilterModel()" type="button" class="btn btn-primary" data-toggle="modal"
+                    data-target="#exampleModalLong">
+                    <i class="pi pi-search pi-xl icon-large p-1"></i>Search
+                </button>
+                <!-- <button (click)="onFilterModel()" type="button" class="btn btn-sm btn-primary search_btn mt-2"
+                    data-bs-toggle="modal" data-bs-target="#exampleModalLong">
+                    <i class="pi pi-search pi-xl icon-large"></i>
+                    <label for="" class="">Search</label>
+                </button> -->
+
+            </div>
+            <div *ngIf="tableHead" class="d-inline-block float-end p-1 pt-6">
+                <input type="button" value="Export Data" class="btn btn-success" (click)="exportToExcel()">
+            </div>
+
+        </div>
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-blue-300 p-2">
+                <h4 class="modal-title text-50" id="exampleModalLongTitle">Report Filter</h4>
+            </div>
+            <div class="modal-body">
+            <div *ngIf="conditions.length > 0">
+                <div *ngFor="let item of conditions; let i = index">
+                    <div class="justify-content-center d-flex p-2">
+                        <div class="form-group col-12 col-2 col-lg-1 p-1" *ngIf="item.condition_operator !=     undefined">
+                            <div *ngIf="i > 0" class="ng-pristine ng-touched ng-valid">
+                                <input type="text" [value]="item.condition_operator" class="form-control form-select-sm" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                            </div>
+                        </div>
+                        <div class="form-group col-12 col-2 col-lg-3 p-1">
+                            <div class="ng-pristine ng-touched ng-valid">
+                                <input type="text" [value]="item.field" class="form-control form-select-sm"
+                                aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                            </div>
+                        </div>
+                        <div class="form-group col-12 col-2 col-lg-3 p-1">
+                            <div class="ng-pristine ng-touched ng-valid">
+                                <input type="text" [value]="item.operator" class="form-control form-select-sm"
+                                aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                            </div>
+                        </div>
+                        <div class="form-group col-12 col-2 col-lg-4 p-1">
+                            <div class="ng-pristine ng-touched ng-valid">
+                                <input type="text" [value]="item.value" class="form-control form-select-sm"
+                                aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                            </div>
+                        </div>
+                        <div class="col-lg-1">
+                            <i class="pi pi-times" style="font-size: 1rem; color: red; padding: 8px;" (click)="remove(i)"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="justify-content-center d-flex">
+                <div class="form-group col-12 col-lg-1 p-1" *ngIf="conditions.length > 0">
+                    <label class="font_family">Joint:</label>
+                    <select class="form-control form-select form-select-sm" id="licenseSelect" [(ngModel)]="FourthInput">
+                        <option value="">--Select Joint--</option>
+                        <option *ngFor="let license of condition_operator" [value]="license.name">{{ license.name }}</option>
+                    </select>
+                </div>
+                <div class="form-group col-12 col-2 col-lg-3 p-1">
+                    <label class="font_family" style="letter-spacing: 1px; font-size: 14px;">Field:</label>
+                    <select (click)="setSecondInputBasedOnField()" class="form-control form-select-sm form-select"   id="licenseSelect" [(ngModel)]="firstInput">
+                        <option value="">--Select Field--</option>
+                        <option  *ngFor="let license of columnOfSelectedLicense" [value]="license.name">{{license.name }}</option>
+                    </select>
+                </div>
+                <div class="form-group col-12 col-2 col-lg-3 p-1">
+                    <label class="font_family" style="letter-spacing: 1px;
+                    font-size: 14px;">Operator :</label>
+                    <select class="form-control form-select-sm form-select" id="licenseSelect" [(ngModel)]="secondInput">
+                        <option value="">--Select Operator--</option>
+                        <option *ngFor="let license of DataType" [value]="license.name">{{ license.name }}
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group col-12 col-2 col-lg-4 p-1">
+                    <label class="font_family" style="letter-spacing: 1px; font-size: 14px;">Value :</label>
+                    <div *ngIf="conditions.length <= 0">
+                        <input type="text" [(ngModel)]="ThirdInput" class="form-control form-select-sm" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                    </div>
+                    <div *ngIf="conditions.length > 0">
+                        <input type="text" [(ngModel)]="ThirdInput" class="form-control form-select-sm"   aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                    </div>
+                </div>
+            </div>
+            <div class="pt-4 float-end float-md-right float-lg-right">
+                <button class="btn btn-sm btn-success" (click)="addCondition(false)" style="margin-right: 10px;">
+                <i class="pi pi-plus icon-large me-2"></i>Add
+                </button>
+                <!-- <button class="btn btn-dark btn-sm round-0">
+                    <i class="pi pi-times" style="font-size: 1rem; color: red;"></i>
+                </button> -->
+            </div>
+        </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clearFilter()">Clear Filter</button>
+                <button (click)="conditions.length <= 0 ? onGenerateReport(true) : onGenerateReport(false)" type="button" class="btn btn-primary" data-dismiss="modal">Apply filter</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"     aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="mb-1 modal-header text-bg-success bg-primary bg-opacity-75">
+                    <h3 class="mb-0">Report Filter</h3>
+                </div>
+                <div class="modal-body">
+                    <div *ngIf="conditions.length > 0">
+                        <div *ngFor="let item of conditions; let i = index">
+                            <div class="row ">
+                                <div class="form-group col-12 col-2 col-lg-1 p-1" *ngIf="item.condition_operator != undefined">
+                                    <div class="ng-pristine ng-touched ng-valid">
+                                    <input type="text" [value]="item.condition_operator"
+                                    class="form-control form-select-sm" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                                    </div>
+                                </div>
+                                <div class="form-group col-12 col-2 col-lg-3 p-1">
+                                    <div class="ng-pristine ng-touched ng-valid">
+                                        <input type="text" [value]="item.field" class="form-control form-select-sm"
+                                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                                    </div>
+                                 </div>
+                                <div class="form-group col-12 col-2 col-lg-3 p-1">
+                                    <div class="ng-pristine ng-touched ng-valid">
+                                        <input type="text" [value]="item.operator" class="form-control form-select-sm"
+                                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                                    </div>
+                                </div>
+                                <div class="form-group col-12 col-2 col-lg-4 p-1">
+                                    <div class="ng-pristine ng-touched ng-valid">
+                                        <input type="text" [value]="item.value" class="form-control form-select-sm"
+                                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                                    </div>
+                                </div>
+                                <div class="col-lg-1">
+                                <i class="pi pi-times" style="font-size: 1rem; color: red; padding: 8px;" (click)="remove(i)"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <div class="row justify-content-center">
+                    <div class="form-group col-12 col-lg-1 p-1" *ngIf="conditions.length > 0">
+                        <label class="font_family">Joint:</label>
+                        <select class="form-control form-select form-select-sm" id="licenseSelect" [(ngModel)]="FourthInput">
+                        <option *ngFor="let license of condition_operator" [value]="license.name">{{ license.name }}</option>
+                        </select>
+                    </div>
+                <div class="form-group col-12 col-2 col-lg-3 p-1">
+                    <label class="font_family" style="letter-spacing: 1px;
+                    font-size: 14px;">Field :</label>
+                    <select class="form-control form-select-sm form-select" id="licenseSelect" [(ngModel)]="firstInput"> <option *ngFor="let license of columnOfSelectedLicense" [value]="license.name">{{license.name }}</option>
+                    </select>
+                </div>
+            <div class="form-group col-12 col-2 col-lg-3 p-1">
+                <label class="font_family" style="letter-spacing: 1px; font-size: 14px;     ">Operator :</label>
+                    <select class="form-control form-select-sm form-select" id="licenseSelect" [(ngModel)]="secondInput">
+                        <option *ngFor="let license of DataType" [value]="license.name">{{ license.name }}
+                        </option>
+                    </select>
+            </div>
+            <div class="form-group col-12 col-2 col-lg-4 p-1">
+            <label class="font_family" style="letter-spacing: 1px; font-size: 14px;">Value :</label>
+                                <input type="text" [(ngModel)]="ThirdInput" class="form-control form-select-sm"
+                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                            </div>
+                        </div>
+                        <div class="pt-4 float-end">
+                            <button class="btn btn-sm btn-success" (click)="addCondition(false)" style="margin-right: 10px;">
+                                <i class="pi pi-plus icon-large me-2"></i>Add
+                            </button>
+                            <!-- <button class="btn btn-dark btn-sm round-0">
+                                  <i class="pi pi-times" style="font-size: 1rem; color: red;"></i>
+                                </button> -->
+                        </div>
+                    </div>
+                    <!-- <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="clearFilter()">Clear Filter</button>
+                        <button type="button" class="btn btn-primary" (click)="onGenerateReport()" data-bs-dismiss="modal">Apply
+                            Filter</button>
+            </div> -->
+        </div>
+    </div>
+</div>
+    <!-- <div class="d-flex justify-content-end">
+        <p style="font-size:20px; font-weight: 400; padding-top: 7px; " class="font_family">Search : &nbsp;</p>
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input style="border-radius: 0px;" type="text" pInputText [(ngModel)]="searchTerm" />
+        </span>
+      </div> -->
+    <div *ngIf="loading" class="d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+    <div row *ngIf="!tableHead" class="alert alert-info p-2 rounded-0 text-center" role="alert">
+        Choose model to filter data!!
+
+    </div>
+
+    <div row *ngIf="noDataFound" class="alert alert-info p-2 rounded-0 text-center" role="alert">
+    No Data found !!
+    </div>
+
+    <div *ngIf="!noDataFound">
+        <table *ngIf="!loading" id="content" #content class="table table-bordered  table-striped font_family mt-2">
+            <thead>
+                <tr>
+                    <th scope="col" *ngIf="tableHead">SL.</th>
+                    <th scope="col" *ngFor="let item of tableHead" class="font_family">{{item}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let rowData of filterCategory();let i = index">
+                    <td>{{ i + 1 + offset}}</td>
+                    <td *ngFor="let item of tableHead" class="font_family" style="line-break:anywhere;">
+                        <ng-container *ngIf="item !== 'Doc Url'; else docUrlContent">
+                            {{ rowData[item] }}
+                        </ng-container>
+                        <ng-template #docUrlContent>
+                                <img type="button" data-bs-toggle="modal" data-bs-target="#exampleModals" height="20px" src="../.././../../assets/file.png" alt="Document URL">
+                            <!-- You can replace the following image source with your actual image URL -->
+                        </ng-template>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="pages > 1" class="mt-4 d-flex align-items-center justify-content-between" >
+        <div>
+            <label for="itemsPerPage">Items per page:</label>
+            <select id="itemsPerPage" class="btn btn-md " [(ngModel)]="selectedlimit"
+                (change)="setLimitValue(selectedlimit)">
+                <option *ngFor="let limit of set_limit">{{limit}}</option>
+            </select>
+        </div>
+        Showing {{selected}} of {{totalEntries}} Enteries
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-end">
+                <li class="page-item ">
+                    <a class="page-link" (click)="previousPage()" [disabled]="current_page === 1">Previous</a>
+                </li>
+                <li *ngFor="let page of pagesArray" [class.active]="page === current_page" class="page-item">
+                    <a class="page-link " (click)="onPageChange(page)" [class.active-page]="page === current_page" >{{page}}</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" (click)="nextPage()" [class.disabled]="current_page === total_pages">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    </div>
+<!-- </div> -->
+
+    </div>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModals" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Document</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <!-- <div id="pdfContainer" style="height: 380px;"></div> -->
+            <object data='https://eternitymarketing.com/assets/image-cache/blog/hello.ede7e3f9.jpg'
+        type='application/pdf'
+        width='100%'
+        height='700px'></object>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,31 @@
+.submit-button{
+    display: flex;
+    justify-content: flex-end;
+}
+.btn{
+    font-weight: bolder;
+}
+.font-size{
+    font-size: large;
+}
+.ticket-table-header{
+    border-left: 3px solid #666666;
+    height: 33px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.header-title{
+    margin-left: 10px;
+}
+.container{
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+.blur-background {
+    filter: blur(5px); /* You can adjust the blur level */
+}
+.spinner-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999; /* Ensure the spinner is above other content */
+}

@@ -1,0 +1,107 @@
+<div class="container">
+    <p-toast></p-toast>
+    <div class="row">
+        <div class="col-7 mr-4 p-0">
+            <div class="bg-white p-3 mb-3">
+                <h4>Ticket Details</h4>
+                <hr>
+                <h5>Subject: <span>{{ ticketDetails?.subject }}</span></h5>
+                <h5 style="display: flex;">Description: <span> <div [innerHTML]="ticketDetails?.description"></div></span></h5>
+                <h5>Attachments: <span class="attachment" style="color: blue;" (click)="getTicketFileByName(ticketDetails.attachment)">{{ ticketDetails.attachment }}</span></h5>
+            </div>
+            <div class="mb-3" *ngIf="showPdfViewer"  id="pdfContainer" style="height: 380px;"></div>
+            <div class="bg-white mb-3">
+                <div class="p-3">
+                    <p-editor [(ngModel)]="replyText" [style]="{ height: '200px' }" placeholder="Enter Full Description"></p-editor>
+                </div>
+                <div class="p-3 button-div">
+                    <p-fileUpload
+                    mode="basic"
+                    chooseLabel="Please Select file"
+                    name="file"
+                    accept="image/*,application/pdf"
+                    maxFileSize="1000000"
+                    (onUpload)="onUpload($event)"
+                    #fileUpload
+                    ></p-fileUpload>
+                    &nbsp;
+                    <button class="btn btn-primary" (click)="submitReply(fileUpload)">Submit Reply</button>
+                </div>
+            </div>
+
+            <div class="bg-white p-3 mb-3" *ngFor="let reply of textReplies; let i = index">
+                <h5>Reply by <span>{{reply.send_by}}</span> - {{reply.created_at}}</h5>
+                <div [innerHTML]="reply.message"></div>
+                <h5>Attachments: <span class="attachment" style="color: blue;" (click)="getRepliedTicketFileByName(reply.attachment, i)">{{ reply.attachment }}</span></h5>
+                <div *ngIf="showRepliedPdfViewer[i]"  id="pdfContainerForRepliedTicket" style="height: 380px;"></div>
+            </div>
+        </div>
+        <div class="col-4 p-0">
+            <div class="bg-white p-3 mb-3">
+                <div class="row">
+                    <div class="col-6">Ticket Status : </div>
+                    <div class="col-6">
+                        <select class="status" [(ngModel)]="ticketStatus" (change)="updateTheTicketDetails()">
+                            <option selected [value]="ticketDetails?.status">{{ ticketDetails?.status }}</option>
+                            <option value="New">New</option>
+                            <option value="Waiting Reply">Waiting Reply</option>
+                            <option value="Replied">Replied</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="On Hold">On Hold</option>
+                            <option value="Needs Review">Needs Review</option>
+                            <option value="Resolved">Resolved</option>
+                        </select>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">Priority : </div>
+                    <div class="col-6">
+                        <select class="status" disabled>
+                        <option selected>{{ ticketDetails?.priority }}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white p-3">
+                <h5>Ticket Details</h5>
+                <div class="row">
+                    <div class="col-6">
+                        Tracking ID:
+                    </div>
+                    <div class="col-6">
+                        {{ ticketDetails?.id }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        Ticket number:
+                    </div>
+                    <div class="col-6">
+                        {{ ticketDetails?.id }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        Created on:
+                    </div>
+                    <div class="col-6">
+                        {{ ticketDetails?.created_at }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        Updated:
+                    </div>
+                    <div class="col-6">
+                        {{ ticketDetails?.updated_at }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="showSpinner" class="spinner-container">
+    <p-progressSpinner styleClass="spinner" strokeWidth="8" fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
+</div>
+

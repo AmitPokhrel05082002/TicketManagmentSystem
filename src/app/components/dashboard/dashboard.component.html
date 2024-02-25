@@ -1,0 +1,69 @@
+<div class="container">
+    <div class="row" *ngIf="isAdmin">
+        <div class="col-2 ticket-box d-flex justify-content-evenly align-items-center">
+            <img src="../../../assets/openTicket.png" height="50" alt="open ticket">
+            <span>Open Ticket {{ ticketList.length }}</span>
+        </div>
+        <div class="col-2 ticket-box d-flex justify-content-evenly align-items-center">
+            <div class="low"></div>
+            <span>Low Priority {{ getPriorityCount('low') }}</span>
+        </div>
+        <div class="col-2 ticket-box d-flex justify-content-evenly align-items-center">
+            <div class="medium"></div>
+            <span>Medium Priority {{ getPriorityCount('Medium') }}</span>
+        </div>
+        <div class="col-2 ticket-box d-flex justify-content-evenly align-items-center">
+            <div class="high"></div>
+            <span>High Priority {{ getPriorityCount('High') }}</span>
+        </div>
+        <div class="col-2 ticket-box d-flex justify-content-evenly align-items-center">
+            <div class="critical"></div>
+            <span>Critical Priority {{ getPriorityCount('Critical') }}</span>
+        </div>
+    </div>
+
+    <div class="container p-3 bg-white mt-5 rounded-4 table-container">
+        <div class="ticket-table-header alert-dark">
+            <h5 class="header-title">Ticket Request List</h5>
+        </div>
+        <div class="table mt-3">
+            <div class="empty_div" *ngIf="ticketList.length === 0">
+                <img class="empty_img" src="../../../assets/empty-box.png">
+                <p class="empty_text">No Ticket Yet !</p>
+            </div>
+            <table border="1" style="display:inline-table;" style="width: 100%; display: inline-table;">
+                <thead>
+                    <tr *ngIf="ticketList.length > 0">
+                        <th *ngFor="let key of getObjectKeys(ticketList[0])">
+                            {{ key | uppercase }}
+                        </th>
+                        <th>View</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of ticketList">
+                        <ng-container *ngFor="let key of getObjectKeys(item)">
+                            <td class="column-title" [ngClass]="{
+                                'low-priority': key === 'priority' && item[key] === 'low',
+                                'medium-priority': key === 'priority' && item[key] === 'Medium',
+                                'high-priority': key === 'priority' && item[key] === 'High',
+                                'critical-priority': key === 'priority' && item[key] === 'Critical'
+                            }">
+                                <ng-container *ngIf="key === 'description'">
+                                    <div [innerHTML]="(item[key] | slice:0:10) + '...'"></div>
+                                </ng-container>
+                                <ng-container *ngIf="key !== 'description'">
+                                    {{ item[key] }}
+                                </ng-container>
+                            </td>
+                        </ng-container>
+                        <td>
+                            <img height="20px" style="cursor: pointer;" src="../../../assets/file.png" (click)="navigate(item.id)">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>

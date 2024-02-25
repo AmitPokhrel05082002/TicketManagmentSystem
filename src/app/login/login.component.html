@@ -1,0 +1,45 @@
+<p-toast></p-toast>
+<div class="main-contend-section" [ngClass]="{'blur-background': showSpinner}">
+    <div class="main-container">
+        <div class="w-50">
+            <div class="logo">
+                <img src="../../assets/NGN.png" alt="Logo">
+            </div>
+
+        </div>
+        <div class="w-50" *ngIf="authPage">
+            <div class="form-section">
+                <form>
+                    <input [(ngModel)]="username" type="text" name="email-or-number" id="email-or-number" placeholder="Email address or phone number">
+                    <input [(ngModel)]="password" type="password" name="password" id="password" placeholder="Password">
+                    <input (click)="login()" type="submit" name="submit" id="submit" value="Log In">
+                    <a href="#" target="_self" class="forgot">Forgotten password?</a>
+                    <div class="line"></div>
+                    <a (click)="switchToSignUp()" target="_self" class="create-new-acc">Create New Account</a>
+                </form>
+            </div>
+            <div class="create-page">
+                <p><a href="#" target="_self">Create a Page</a> for a celebrity, band or business.</p>
+            </div>
+        </div>
+
+        <div class="w-50" *ngIf="!authPage">
+            <div class="form-section">
+                <form>
+                    <input [(ngModel)]="fullName" type="text" name="Full Name" id="Full Name" placeholder="Full Name">
+                    <input [(ngModel)]="username" type="text" name="email-or-number" id="email-or-number" placeholder="Email address or phone number">
+                    <input [(ngModel)]="password" type="password" name="password" id="password" placeholder="Password">
+                    <input (click)="signup()" type="submit" name="submit" id="submit" value="Sign Up">
+                    <div class="line"></div>
+                    <a (click)="switchToLogin()" target="_self" class="create-new-acc">Log In</a>
+                </form>
+            </div>
+            <div class="create-page">
+                <p><a href="#" target="_self">Create a Page</a> for a celebrity, band or business.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="showSpinner" class="spinner-container">
+    <p-progressSpinner styleClass="spinner" strokeWidth="8" fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
+</div>

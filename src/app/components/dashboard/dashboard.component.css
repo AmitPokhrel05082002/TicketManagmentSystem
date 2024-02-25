@@ -1,0 +1,221 @@
+.ticket-box{
+    border: 1px solid white;
+    border-radius: 12px;
+    background: white;
+    margin-left: 20px;
+    font-size: 15px;
+    font-weight: 500;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    padding: 0%;
+}
+@keyframes blinker {
+    from {opacity: 1.0;}
+    to {opacity: 0.0;}
+}
+
+@-webkit-keyframes blinker {
+    from {opacity: 1.0;}
+    to {opacity: 0.0;}
+}
+
+.low{
+    background: #0080008f;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    animation-name: blinker; /* Standard property */
+    -webkit-animation-name: blinker; /* WebKit prefix */
+
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    animation-direction: alternate;
+
+    -webkit-animation-duration: 2s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-direction: alternate;
+}
+.medium{
+    background: #ff9e00ab;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    animation-name: blinker; /* Standard property */
+    -webkit-animation-name: blinker; /* WebKit prefix */
+
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    animation-direction: alternate;
+
+    -webkit-animation-duration: 2s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-direction: alternate;
+}
+.high{
+    background: #ff2e439e;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    animation-name: blinker; /* Standard property */
+    -webkit-animation-name: blinker; /* WebKit prefix */
+
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    animation-direction: alternate;
+
+    -webkit-animation-duration: 2s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-direction: alternate;
+}
+.critical{
+    background: #da0202;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    animation-name: blinker; /* Standard property */
+    -webkit-animation-name: blinker; /* WebKit prefix */
+
+    animation-duration: 0.4s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    animation-direction: alternate;
+
+    -webkit-animation-duration: 0.4s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-direction: alternate;
+}
+
+.table-container {
+    /* overflow-x: auto; */
+    scrollbar-width: auto;
+    scrollbar-color: #ffffff #ffffff;
+    overflow-x: auto;
+}
+
+/* Chrome, Edge, and Safari */
+.table-container::-webkit-scrollbar {
+    height: 12px; /* Set the height for the x-axis scrollbar */
+}
+
+.table-container::-webkit-scrollbar-track {
+    background: #ffffff;
+    border-radius: 20px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    background-color: #ffffff;
+    border-radius: 10px;
+    border: 3px solid #cfcfcf;
+}
+
+.table{
+    width: 100%;
+    text-align: start;
+    border: #f0f0f0;
+    /* border-radius: 14px; */
+    width: 100%;
+    overflow-x: auto;
+}
+table{
+    border: #f0f0f0;
+}
+th {
+    position: relative;
+    color: rgb(255 255 255);
+    font-weight: 800;
+    text-align: start;
+    background: #6196e5;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background 0.2s ease;
+    padding: 8px 8px;
+}
+td{
+    padding: 8px 8px;
+    background: #ffffff;
+    color: black;
+    font-weight: 600;
+}
+.expanded-row {
+    background-color: #f3f3f3a8; /* Set your desired background color for expanded rows */
+}
+
+.changed-cell {
+    color: red; /* Set your desired background color for cells with changed data */
+}
+tbody, td, tfoot, th, thead, tr {
+    border-color: inherit;
+    border-style: solid;
+    border-width: 1px;
+}
+
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #cccccc #ffffff;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+*::-webkit-scrollbar-track {
+    background: #ffffff;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #cccccc;
+    border-radius: 10px;
+    border: 3px solid #ffffff;
+}
+.column-title {
+    white-space: nowrap;
+}
+
+.low-priority {
+    background-color: #0080008f;
+}
+
+.medium-priority {
+    background-color: #ff9e00ab;
+}
+
+.high-priority {
+    background-color: #ff2e439e; /* Light red */
+}
+
+.critical-priority {
+    background-color: #da0202;
+}
+
+.ticket-table-header{
+    border-left: 3px solid #666666;
+    height: 30px;
+}
+.header-title{
+    margin-left: 10px;
+    padding-top: 4px;
+}
+.table-container{
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+.empty_div{
+    display: grid;
+    justify-content: center;
+}
+.empty_img{
+    height: 200px;
+}
+.empty_text{
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+}

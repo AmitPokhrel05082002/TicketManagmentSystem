@@ -1,0 +1,86 @@
+html {
+    font-size: 14px;
+
+}
+
+.font_family {
+    font-family: math;
+}
+
+body {
+    /* font-family: var(--font-family); */
+    font-weight: normal;
+    background: var(--surface-ground);
+    color: var(--text-color);
+    padding: 1rem;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+}
+
+.card {
+    background: var(--surface-card);
+    padding: 2rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
+.space {
+    margin-right: 20px;
+}
+
+.icon-large {
+    font-size: 13px;
+    /* background-color: darkgray; */
+    margin-left: 2px;
+}
+
+.drop-down {
+    vertical-align: top;
+    background-color: #fff;
+    padding: 7.5px 7.5px 3.75px;
+    border: 1px solid #ddd;
+    border-radius: 2.5px;
+    font-size: 14px;
+    min-height: 44px;
+    overflow: hidden;
+}
+
+
+.page-link.active {
+    background-color: #007bff;
+    color: #fff;
+}
+
+
+.custom_pagination {
+    padding: 0px 10px;
+}
+
+.custom-form {
+    border-radius: 0px;
+}
+
+.custom-modal {
+    /* margin: 20px; */
+    padding-top: 20px;
+
+}
+
+.view_list {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+}
+
+.active-page {
+    background-color: #007bff;
+    color: #fff;
+}
+
+
+/* .search_btn{
+
+} */
