@@ -7,6 +7,6 @@ COPY . .
 RUN npm run build
 
 FROM nginx:alpine
-ARG name
-COPY --from=angular /ng-app/dist/$name/browser /usr/share/nginx/html
+ARG app_name
+COPY --from=angular /ng-app/dist/${app_name}/browser /usr/share/nginx/html
 EXPOSE 80
