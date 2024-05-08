@@ -8,5 +8,5 @@ RUN npm run build
 
 FROM nginx:alpine
 ARG app_name
-COPY dist /usr/share/nginx/html
+COPY dist/sakai-ng /usr/share/nginx/html
 EXPOSE 80
