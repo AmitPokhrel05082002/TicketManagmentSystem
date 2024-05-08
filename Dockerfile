@@ -8,5 +8,5 @@ RUN npm run build
 
 FROM nginx:alpine
 ARG app_name
-#COPY --from=angular /ng-app/dist/sakai-ng/browser /usr/share/nginx/html
+COPY ~/workspace/Etool-frontend-pipeline/dist/sakai-ng /usr/share/nginx/html
 EXPOSE 80
